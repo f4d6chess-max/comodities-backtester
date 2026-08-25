@@ -10,7 +10,6 @@ copper['MA50'] = copper['Close'].rolling(window=50).mean()
 
 copper[['Close', 'MA20', 'MA50']].plot(figsize=(12,6), title="Copper with Moving Averages")
 plt.show()
-# your logic here — set Signal to 1 when MA20 > MA50, -1 when MA20 < MA50H
 copper['Signal'] = 0
 copper.loc[copper['MA20'] > copper['MA50'], 'Signal'] = 1
 copper.loc[copper['MA20'] < copper['MA50'], 'Signal'] = -1
@@ -32,7 +31,7 @@ copper[['Cumulative_Strategy', 'Cumulative_BuyHold']].plot(figsize=(12,6), title
 plt.show()
 
 # Transaction costs: assume 0.1% cost per trade (round-trip), applied whenever the signal changes
-trade_cost = 0.001  # 0.1% -- realistic-ish for futures, adjust later if you want to test sensitivity
+trade_cost = 0.001  # 0.1% -- realistic-ish for futures
 
 copper['Trade'] = (copper['Signal'] != copper['Signal'].shift(1)).astype(int)
 copper['Cost'] = copper['Trade'] * trade_cost
