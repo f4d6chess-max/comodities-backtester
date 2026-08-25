@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def run_ma_crossover_backtest(ticker, name, start="2020-01-01", end="2025-01-01", trade_cost=0.001):
     """
-    Runs the exact same MA(20,50) crossover strategy you built for copper,
+    Runs the exact same MA(20,50) crossover strategy built for copper,
     on any ticker. Returns a dict of results so we can compare across assets.
     """
     data = yf.download(ticker, start=start, end=end)
@@ -19,7 +19,7 @@ def run_ma_crossover_backtest(ticker, name, start="2020-01-01", end="2025-01-01"
     data['Daily_Return'] = data['Close'].pct_change()
     data['Strategy_Return'] = data['Signal'].shift(1) * data['Daily_Return']
 
-    # transaction costs, same as your copper version
+    # transaction costs, same as the copper version
     data['Trade'] = (data['Signal'] != data['Signal'].shift(1)).astype(int)
     data['Cost'] = data['Trade'] * trade_cost
     data['Strategy_Return_NetCost'] = data['Strategy_Return'] - data['Cost']
@@ -46,7 +46,7 @@ def run_ma_crossover_backtest(ticker, name, start="2020-01-01", end="2025-01-01"
 
 
 # --- Run across multiple commodities ---
-# HG=F  = Copper (your original)
+# HG=F  = Copper (original)
 # ALI=F = Aluminum
 # SI=F  = Silver (as a second "metal" comparison point)
 # CL=F  = Crude Oil (a genuinely different commodity type -- energy, not metal)
